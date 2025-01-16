@@ -1,3 +1,9 @@
-my-light-blue-bg {
-  background-color: #e0f2f7; /* A nice light blue */
+#grid {
+  max-width: 300px;
+}
+.box {
+  min-height: 100px;
+}
+#alert--container {
+  min-height: 80px;
 }
