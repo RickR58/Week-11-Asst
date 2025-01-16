@@ -42,6 +42,12 @@ const winningOutcomes = [
   [box2, box4, box6],
 ];
 
+/* const checkWinner = (currentPlayer, a, b, c) => {
+
+  if(a.text() === currentPlayer && b.text() === currentPlayer && c.text() === currentPlayer)
+
+};
+ */
 //Keep track of current player
 let currentPlayer = "";
 
@@ -50,6 +56,8 @@ const startGame = () => {
   console.log(turn++);
   currentPlayer = player1;
   console.log(currentPlayer);
+
+  $("#p1").addClass("bg-light border border-danger");
 
   //   show start alert
   $("#alertStart").show();
@@ -67,9 +75,13 @@ const startGame = () => {
     if (currentPlayer === player1) {
       currentPlayer = player2;
       console.log(turn++);
+      $("#p2").addClass("bg-light border border-danger");
+      $("#p1").removeClass("bg-light border border-danger");
     } else {
       currentPlayer = player1;
       console.log(turn++);
+      $("#p1").addClass("bg-light border border-danger");
+      $("#p2").removeClass("bg-light border border-danger");
     }
   });
 };
@@ -77,3 +89,8 @@ const startGame = () => {
 document
   .getElementById("startBtn")
   .addEventListener("click", () => startGame());
+// reset button
+
+document
+  .getElementById("resetBtn")
+  .addEventListener("click", () => document.location.reload(true));
