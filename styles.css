@@ -1,3 +1,7 @@
+h1 {
+  font-size: 4em;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
 #grid {
   max-width: 300px;
 }

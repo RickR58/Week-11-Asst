@@ -5,8 +5,7 @@ When a cell in the grid is clicked, an X or O should appear in that spot dependi
 A heading should say whether it is X's or O's turn and change with each move made.
 A button should be available to clear the grid and restart the game.
 When a player has won, or the board is full and the game results in a draw, a Bootstrap alert or similar Bootstrap component should appear across the screen announcing the winner. */
-//!----------------------------//
-// STOPPED AT 42 MINUTES
+// !----------------------------//
 
 let box0 = $("#box0");
 let box1 = $("#box1");
@@ -28,6 +27,9 @@ $("#alertStart").hide();
 $("#alertWinner").hide();
 $("#alertDraw").hide();
 
+//Keep track of current player
+let currentPlayer = "";
+
 const winningOutcomes = [
   //horizontal
   [box0, box1, box2],
@@ -42,14 +44,59 @@ const winningOutcomes = [
   [box2, box4, box6],
 ];
 
-/* const checkWinner = (currentPlayer, a, b, c) => {
-
-  if(a.text() === currentPlayer && b.text() === currentPlayer && c.text() === currentPlayer)
-
+const endGame = () => {
+  console.log("GAME OVER");
+  $(".box").css("pointer-events", "none");
+  $("p1").removeClass("bg-light border border--info");
+  $("p2").removeClass("bg-light border border--info");
 };
- */
-//Keep track of current player
-let currentPlayer = "";
+
+const checkWinner = (currentPlayer, a, b, c) => {
+  if (
+    a.text() === currentPlayer &&
+    b.text() === currentPlayer &&
+    c.text() === currentPlayer
+  ) {
+    winner = true;
+    console.log(`Found winner, it's ${currentPlayer}!`);
+
+    //THis makes it not work. BUt maybe there's more
+    a.removeClass("text-info bg-dark");
+    b.removeClass("text-info bg-dark");
+    c.removeClass("text-info bg-dark");
+
+    a.addClass("text-dark bg-info");
+    b.addClass("text-dark bg-info");
+    c.addClass("text-dark bg-info");
+
+    if (currentPlayer === "X") {
+      currentPlayer = "Player 1";
+    } else {
+      currentPlayer = "Player 2";
+    }
+
+    $("#alertWinner").text(`GAME OVER ${currentPlayer} WINS!`);
+    $("#alertWinner").show();
+
+    endGame();
+  }
+};
+
+const checkOutcomes = () => {
+  checkWinner(currentPlayer, ...winningOutcomes[0]);
+  checkWinner(currentPlayer, ...winningOutcomes[1]);
+  checkWinner(currentPlayer, ...winningOutcomes[2]);
+  checkWinner(currentPlayer, ...winningOutcomes[3]);
+  checkWinner(currentPlayer, ...winningOutcomes[4]);
+  checkWinner(currentPlayer, ...winningOutcomes[5]);
+  checkWinner(currentPlayer, ...winningOutcomes[6]);
+  checkWinner(currentPlayer, ...winningOutcomes[7]);
+
+  if (turn === 9 && winner === false) {
+    endGame();
+    $("#alertDraw").show();
+  }
+};
 
 const startGame = () => {
   console.log("Start Game!");
@@ -70,6 +117,10 @@ const startGame = () => {
     if (turn > 4) {
       // Check winners
       console.log("winner???");
+      checkOutcomes();
+    }
+
+    if (winner === false) {
     }
 
     if (currentPlayer === player1) {
